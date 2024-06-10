@@ -1,0 +1,121 @@
+svg {
+    display: inline-block;
+    font-size: 22px;
+    margin-right: 3px;
+    color: black;
+    margin-top: -5px;
+}
+
+.list-empty {
+    text-align: center;
+    margin-top: 130px;
+}
+
+.list-empty p{
+    margin-top: 10px;
+}
+
+.list-empty svg {
+    width: 5em;
+    height: 5em;
+}
+
+.button-add {
+    background-color: #6777ef;
+    padding: 5px 5px 5px 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+.button-add svg {
+    color: white;
+    width: 1em;
+    height: 1em;
+}
+
+.button-add:hover {
+    background-color: #4c60da;
+}
+
+.button-edit {
+    background-color: rgb(23, 154, 23);
+    padding: 5px 5px 5px 8px;
+    border-radius: 5px;
+    border: none;
+    display: inline-block;
+}
+
+.button-edit svg {
+    color: white;
+    width: 1em;
+    height: 1em;
+}
+
+.button-edit:hover {
+    background-color: rgb(0, 129, 0);
+}
+
+.button-delete {
+    background-color: rgb(185, 25, 25);
+    padding: 6px 5px 6px 8px;
+    border-radius: 5px;
+    border: none;
+    display: inline-block;
+}
+
+.button-delete svg {
+    color: white;
+    width: 1em;
+    height: 1em;
+}
+
+.button-delete:hover {
+    background-color: rgb(123, 17, 17);
+}
+
+#imagePreview {
+    display: none; 
+    width: 130px; 
+    height: 130px;
+    margin-top: 10px;
+}
+
+.gallery, .image-option, .img-old {
+    width: 130px; 
+    height: 130px;
+    object-fit: contain;
+}
+
+.gallery-preview {
+    display: none; 
+    max-width: 130px; 
+    height: auto;
+    margin-top: 10px;
+}
+
+.option-image-preview {
+    display: none; 
+    max-width: 130px; 
+    height: auto;
+    margin-top: 10px;
+}
+
+.customer-img {
+    width: 90px;
+    height: 90px;
+    border: 1px solid rgb(210, 210, 210);
+    padding: 2px;
+}
+
+.ck-content {
+    height: 300px;
+}
+
+.checkbox-categories {
+    height: 100px;
+    overflow-y: scroll;
+    border: 1px solid rgb(210, 210, 210); /* Để hiển thị viền giống như form-control */
+    border-radius: .25rem; /* Để bo góc như form-control */
+    padding: .375rem .75rem; /* Để padding như form-control */
+    box-sizing: border-box; /* Để bao gồm cả padding và border vào chiều cao */
+}

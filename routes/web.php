@@ -124,4 +124,5 @@ Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
 // --- CLIENT: START LOGIN & REGISTER ---
 Route::post('/check-account', [AuthenticationController::class, 'checkAccount'])->name('check-account');
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
+Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
 // --- CLIENT: END LOGIN & REGISTER ---

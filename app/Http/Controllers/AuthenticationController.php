@@ -85,16 +85,26 @@ class AuthenticationController extends Controller
 
     public function register(Request $request)
     {
-        // Create new customer
         $customer = new Customer;
         $customer->fullname = $request->fullname;
         $customer->account = $request->account;
-        $customer->password = bcrypt($request->password); // You should hash the password for security
+        $customer->password = bcrypt($request->password);
         $customer->status = true;
         $customer->save();
 
-        // Redirect back or wherever you want
         return redirect()->back()->with('success', 'Tạo tài khoản thành công');
+    }
+
+    public function login(Request $request)
+    {
+        $customer = new Customer;
+        $customer->fullname = $request->fullname;
+        $customer->account = $request->account;
+        $customer->password = bcrypt($request->password);
+        $customer->status = true;
+        $customer->save();
+
+        return redirect()->back()->with('success', 'Đăng nhập khoản thành công');
     }
 
     //--- END CLIENT ---

@@ -44,7 +44,16 @@
 
 <body>
 
-    <div class="colorlib-loader"></div>
+    @if (session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger text-center">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div id="page">
         <nav class="colorlib-nav" role="navigation">
@@ -101,10 +110,50 @@
                                         <li><a id="register" onclick="showRegisterModal()">Đăng kí</a></li>
                                     </ul>
                                 </li>
-                                <!-- Placeholder for modal -->
                             </ul>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Form đăng nhập -->
+            <div id="loginModal" class="modal">
+                <div class="modal-content">
+                    <div class="close" onclick="closeLoginModal()">
+                        <span>&times;</span>
+                    </div>
+                    <h2>ĐĂNG NHẬP</h2>
+                    <form method="POST" action="{{ route('login') }}" class="form-login"
+                        onsubmit="return validateLogin()">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="account-login">Tên đăng nhập</label>
+                                    <input type="text" id="account-login" name="account-login" class="form-control" />
+                                    <small class="text-danger" id="account-login-error"></small>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="password-login">Mật khẩu</label>
+                                    <input type="password" id="password-login" name=password-login" class="form-control" />
+                                    <small class="text-danger" id="password-login-error"></small>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Đăng nhập" class="btn btn-primary">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group mb-1">
+                                    <span>Bạn đã có tài khoản? <a class="text-primary" id="register-link">Đăng nhập
+                                            ngay</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -115,7 +164,8 @@
                         <span>&times;</span>
                     </div>
                     <h2>Đăng kí</h2>
-                    <form method="POST" action="{{ route('register') }}" class="contact-form" onsubmit="return validateRegister()">
+                    <form method="POST" action="{{ route('register') }}" class="form-register"
+                        onsubmit="return validateRegister()">
                         @csrf
                         <div class="row">
                             <div class="col-sm-12">

@@ -1,4 +1,5 @@
 async function validateRegister() {
+    event.preventDefault(); // Ngăn chặn sự kiện submit mặc định
     let isValid = true;
 
     // Lấy giá trị của các trường dữ liệu
@@ -62,19 +63,17 @@ async function validateRegister() {
     }
 
     if (isValid) {
-        return true;
-    } else {
-        return false;
+        document.querySelector(".form-register").submit();
     }
 }
 
-// Validate account and check if it exists in database using AJAX
 function validateAccount(account) {
     return new Promise((resolve, reject) => {
         // Tạo request AJAX
         const csrfToken = document.querySelector('input[name="_token"]').value;
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "/check-account", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken);
         // Xử lý kết quả nhận được từ server
         xhr.onload = () => {
@@ -96,4 +95,58 @@ function validateAccount(account) {
         // Gửi request với dữ liệu là tên đăng nhập cần kiểm tra
         xhr.send(JSON.stringify({ account: account }));
     });
+}
+
+function validateLogin() {
+    event.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+    let isValid = true;
+
+    // Lấy giá trị của các trường dữ liệu
+    const account = document.getElementById("account-login").value.trim();
+    const password = document.getElementById("password-login").value.trim();
+
+    // Lấy các div hiển thị lỗi
+    const accountError = document.getElementById("account-login-error");
+    const passwordError = document.getElementById("password-login-error");
+
+    accountError.textContent = "";
+    passwordError.textContent = "";
+
+    if (!account) {
+        accountError.textContent = "Vui lòng nhập tên đăng nhập";
+        isValid = false;
+    }
+
+    if (!password) {
+        passwordError.textContent = "Vui lòng nhập mật khẩu";
+        isValid = false;
+    }
+
+    if (isValid) {
+        $.ajax({
+            url: '{{ route("login") }}',
+            method: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                account: account,
+                password: password,
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Redirect to the intended page or home page
+                    window.location.href = '{{ url("/home") }}';
+                } else {
+                    passwordError.textContent = response.message;
+                }
+            },
+            error: function (response) {
+                if (response.status === 401) {
+                    passwordError.textContent = response.responseJSON.message;
+                } else {
+                    passwordError.textContent =
+                        "Có lỗi xảy ra. Vui lòng thử lại.";
+                }
+            },
+        });
+    }
 }

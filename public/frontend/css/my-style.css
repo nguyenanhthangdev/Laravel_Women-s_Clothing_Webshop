@@ -34,7 +34,7 @@
 }
 
 /* CSS để ẩn form mặc định */
-#registerModal {
+#registerModal, #loginModal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -44,14 +44,27 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
 }
 
 .modal-content {
+    margin: 100px auto;
     background-color: #fefefe;
-    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 40%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+    }
 }
 
 .close {

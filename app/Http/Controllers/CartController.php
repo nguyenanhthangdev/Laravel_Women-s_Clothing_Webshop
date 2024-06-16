@@ -66,7 +66,12 @@ class CartController extends Controller
         $cart = Session::get('cart', []);
         $categories = Category::active()->get();
         $manufacturers = Manufacturer::active()->get();
-        return view('client.cart.cart', compact('cart', 'categories', 'manufacturers'));
+        $totalPrice = 0;
+        foreach ($cart as $item) {
+            $priceAfterDiscount = $item['price_variant'] - ($item['price_variant'] * $item['discount'] / 100);
+            $totalPrice += $priceAfterDiscount * $item['quantity'];
+        }
+        return view('client.cart.cart', compact('cart', 'categories', 'manufacturers', 'totalPrice'));
     }
 
     public function getCartCount()
@@ -91,5 +96,25 @@ class CartController extends Controller
         Session::put('cart', $cart);
 
         return response()->json(['success' => true, 'message' => 'Đã xóa sản phẩm khỏi giỏ hàng!', 'cartCount' => count($cart)]);
+    }
+
+    public function updateCart(Request $request)
+    {
+        $variantIdToUpdate = $request->input('variant_id');
+        $newQuantity = $request->input('quantity');
+
+        $cart = Session::get('cart', []);
+
+        foreach ($cart as &$item) {
+            if ($item['variantId'] === $variantIdToUpdate) {
+                $item['quantity'] = $newQuantity;
+                break;
+            }
+        }
+
+        // Lưu giỏ hàng mới vào session
+        Session::put('cart', $cart);
+
+        return response()->json(['success' => true]);
     }
 }

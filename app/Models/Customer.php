@@ -32,4 +32,10 @@ class Customer extends Model
     protected $casts = [
         'status' => 'boolean',
     ];
+
+    // Quan hệ với model Shipping
+    public function shipping()
+    {
+        return $this->hasMany(Shipping::class);
+    }
 }

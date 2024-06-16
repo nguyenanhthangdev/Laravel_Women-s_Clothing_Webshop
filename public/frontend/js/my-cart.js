@@ -83,17 +83,85 @@ function removeFromCart(variantId) {
                 alert(data.message);
                 document.getElementById("cart-item-" + variantId).remove();
                 document.querySelector(".cart span").innerText = data.cartCount;
+                updateTotalPrice();
 
                 if (data.cartCount == 0) {
                     document.getElementById("cart-table").style.display =
                         "none";
-                    document.getElementById(
-                        "cart-empty"
-                    ).style.display = "block";
+                    document.getElementById("cart-empty").style.display =
+                        "block";
                 }
             } else {
                 alert("Lỗi khi xóa sản phẩm khỏi giỏ hàng.");
             }
         })
         .catch((error) => console.error("Error:", error));
+}
+
+function updateCart(variantId, quantity) {
+    const csrfToken = document.querySelector('input[name="_token"]').value;
+    $.ajax({
+        url: "/cart/update-cart",
+        method: "POST",
+        data: {
+            variant_id: variantId,
+            quantity: quantity,
+            _token: csrfToken,
+        },
+        success: function (response) {
+            updateCartItemPrice(variantId, quantity);
+            updateTotalPrice();
+        },
+        error: function (xhr, status, error) {
+            alert("Đã có lỗi xảy ra. Vui lòng thử lại sau!");
+        },
+    });
+}
+
+function updateCartItemPrice(variantId, quantity) {
+    var quantityInput = document.getElementById("quantity-" + variantId);
+    var priceInput = document.getElementById("price-" + variantId).value;
+    var discountInput = document.getElementById("discount-" + variantId).value;
+
+    quantity = parseInt(quantity);
+    var price = parseInt(priceInput);
+    var discount = parseInt(discountInput);
+
+    var total = (price - (price * discount) / 100) * quantity;
+    document.getElementById("total-" + variantId).innerText =
+        total.toLocaleString() + " VND";
+    quantityInput.value = quantity;
+}
+
+function updateTotalPrice() {
+    var totalPrice = 0;
+    $(".quantity-cart").each(function () {
+        var variantId = $(this).attr("id").split("-")[1];
+        var quantity = $(this).val();
+        var priceVariant = $("#price-" + variantId).val();
+        var discount = $("#discount-" + variantId).val();
+        var itemTotal =
+            (priceVariant - (priceVariant * discount) / 100) * quantity;
+        totalPrice += itemTotal;
+    });
+    document.getElementById("total-price").innerText =
+        totalPrice.toLocaleString() + " VND";
+    document.getElementById("total-of-all-prices").innerText =
+        totalPrice.toLocaleString() + " VND";
+}
+
+function increaseQuantity(variantId) {
+    var quantityInput = document.getElementById("quantity-" + variantId);
+    var currentQuantity = parseInt(quantityInput.value);
+    currentQuantity++;
+    updateCart(variantId, currentQuantity);
+}
+
+function decreaseQuantity(variantId) {
+    var quantityInput = document.getElementById("quantity-" + variantId);
+    var currentQuantity = parseInt(quantityInput.value);
+    if (currentQuantity > 1) {
+        currentQuantity--;
+        updateCart(variantId, currentQuantity);
+    }
 }

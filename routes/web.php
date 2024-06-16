@@ -5,11 +5,13 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ManufacturerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -119,6 +121,7 @@ Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add')
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.count');
 Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
+Route::post('/cart/update-cart', [CartController::class, 'updateCart']);
 // --- CLIENT: END CART ---
 
 // --- CLIENT: START LOGIN & REGISTER ---
@@ -126,3 +129,25 @@ Route::post('/check-account', [AuthenticationController::class, 'checkAccount'])
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
 // --- CLIENT: END LOGIN & REGISTER ---
+
+Route::middleware(['customer.auth'])->group(function () {
+    // --- CLIENT: START CHECKOUT ---
+    Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    // --- CLIENT: END CHECKOUT ---
+
+    // --- CLIENT: START LOGOUT ---
+    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+    // --- CLIENT: END LOGOUT ---
+
+    // --- CLIENT: START CITY, DISTRICT, WARD ---
+    Route::get('/get-districts/{city_id}', [ShippingController::class, 'getDistricts']);
+    Route::get('/get-wards/{city_id}', [ShippingController::class, 'getWards']);
+    // --- CLIENT: START CITY, DISTRICT, WARD ---
+
+    // --- CLIENT: START SHIPPING ---
+    Route::post('/add-shipping', [ShippingController::class, 'addShipping']);
+    Route::get('/get-all-shipping-by-customer-id', [ShippingController::class, 'getAllShippingByCustomerId']);
+    Route::post('/set-default-shipping', [ShippingController::class, 'setDefaultShipping']);
+    Route::delete('/delete-shipping/{shipping_id}', [ShippingController::class, 'deleteShipping']);
+    // --- CLIENT: END SHIPPING ---
+});

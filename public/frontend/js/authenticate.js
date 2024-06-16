@@ -42,3 +42,39 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+function checkLogin() {
+    const isLoggedIn =
+        document.querySelector('meta[name="user-logged-in"]').content ===
+        "true";
+    if (isLoggedIn) {
+        window.location.href = "/checkout";
+    } else {
+        // Nếu chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
+        alert("Vui lòng đăng nhập để tiếp tục thanh toán.");
+    }
+}
+
+function logout() {
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content");
+    $.ajax({
+        url: "/logout",
+        method: "POST",
+        data: {
+            _token: csrfToken,
+        },
+        success: function (response) {
+            if (response.success) {
+                window.location.reload();
+                alert("Đã đăng xuất khỏi tài khoản của bạn.")
+            } else {
+                alert("Đăng xuất không thành công. Vui lòng thử lại!");
+            }
+        },
+        error: function (xhr, status, error) {
+            alert("Đã có lỗi xảy ra. Vui lòng thử lại sau!");
+        },
+    });
+}

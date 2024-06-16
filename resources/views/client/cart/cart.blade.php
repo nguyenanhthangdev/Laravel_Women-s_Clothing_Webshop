@@ -38,25 +38,33 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="input-group mb-4">
-                                            <span class="input-group-btn">
-                                                <button type="button" class="quantity-left-minus btn" data-type="minus"
-                                                    data-field="">
-                                                    <i class="icon-minus2"></i>
-                                                </button>
-                                            </span>
-                                            <input type="text" id="quantity-{{ $item['variantId'] }} quantity"
-                                                name="quantity" class="form-control input-number quantity-cart"
-                                                value="{{ $item['quantity'] }}" min="1" max="100" readonly>
-                                            <span class="input-group-btn ml-1">
-                                                <button type="button" class="quantity-right-plus btn" data-type="plus"
-                                                    data-field="">
-                                                    <i class="icon-plus2"></i>
-                                                </button>
-                                            </span>
-                                        </div>
+                                        <form>
+                                            @csrf
+                                            <div class="input-group mb-4">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn" data-type="minus" data-field=""
+                                                        onclick="decreaseQuantity({{ $item['variantId'] }})">
+                                                        <i class="icon-minus2"></i>
+                                                    </button>
+                                                </span>
+                                                <input type="hidden" id="price-{{ $item['variantId'] }}"
+                                                    value="{{ $item['price_variant'] }}" readonly />
+                                                <input type="hidden" id="discount-{{ $item['variantId'] }}"
+                                                    value="{{ $item['discount'] }}" readonly />
+                                                <input type="text" id="quantity-{{ $item['variantId'] }}"
+                                                    name="quantity" class="form-control input-number quantity-cart"
+                                                    value="{{ $item['quantity'] }}" min="1" readonly>
+                                                <span class="input-group-btn ml-1">
+                                                    <button type="button" class="btn" data-type="plus" data-field=""
+                                                        onclick="increaseQuantity({{ $item['variantId'] }})">
+                                                        <i class="icon-plus2"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </form>
                                     </td>
-                                    <td>{{ number_format(($item['price_variant'] - ($item['price_variant'] * $item['discount']) / 100) * $item['quantity'], 0, ',', '.') }}
+                                    <td id="total-{{ $item['variantId'] }}">
+                                        {{ number_format(($item['price_variant'] - ($item['price_variant'] * $item['discount']) / 100) * $item['quantity'], 0, ',', '.') }}
                                         VND</td>
                                     <td><i class="icon-delete" onclick="removeFromCart({{ $item['variantId'] }})"></i></td>
                                 </tr>
@@ -64,15 +72,46 @@
                         </tbody>
                     </table>
                 </div>
+                <hr />
+                <div class="row row-pb-lg">
+                    <div class="col-md-12">
+                        <div class="total-wrap">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                    <div class="total mb-3">
+                                        <div class="sub">
+                                            <p><span>Giá tiền:</span> <span id="total-price">{{ number_format($totalPrice, 0, ',', '.') }}
+                                                    VND</span></p>
+                                            <p><span>Giảm giá:</span> <span>0</span></p>
+                                            <p><span>Phí vận chuyển:</span> <span>0</span></p>
+                                        </div>
+                                        <div class="grand-total">
+                                            <p><span><strong>Tổng giá tiền:</strong></span>
+                                                <span id="total-of-all-prices">{{ number_format($totalPrice, 0, ',', '.') }} VND</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <a type="button" class="btn btn-secondary" href="javascript:void(0)"
+                                            onclick="checkLogin()">Thanh toán</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="cart-empty">
+        @else
+            <div>
                 <h1 class="mt-4">Giỏ hàng của bạn trống</h1>
                 <a type="button" class="btn btn-secondary" href="/">Tiếp tục mua hàng</a>
             </div>
-        @else
+        @endif
+        <div id="cart-empty">
             <h1 class="mt-4">Giỏ hàng của bạn trống</h1>
             <a type="button" class="btn btn-secondary" href="/">Tiếp tục mua hàng</a>
-        @endif
+        </div>
     </div>
 
 @endsection

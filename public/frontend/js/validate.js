@@ -108,10 +108,15 @@ function validateLogin() {
     // Lấy các div hiển thị lỗi
     const accountError = document.getElementById("account-login-error");
     const passwordError = document.getElementById("password-login-error");
+    const loginErrorMessage = document.getElementById("login-error-message");
 
+    // Xóa các thông báo lỗi trước đó
     accountError.textContent = "";
     passwordError.textContent = "";
+    loginErrorMessage.style.display = "none";
+    loginErrorMessage.textContent = "";
 
+    // Kiểm tra giá trị tài khoản và mật khẩu
     if (!account) {
         accountError.textContent = "Vui lòng nhập tên đăng nhập";
         isValid = false;
@@ -122,29 +127,39 @@ function validateLogin() {
         isValid = false;
     }
 
+    // Nếu dữ liệu hợp lệ, thực hiện AJAX
     if (isValid) {
+        const csrfToken = document.querySelector('input[name="_token"]').value;
         $.ajax({
-            url: '{{ route("login") }}',
+            url: "/login",
             method: "POST",
             data: {
-                _token: "{{ csrf_token() }}",
+                _token: csrfToken,
                 account: account,
                 password: password,
             },
             success: function (response) {
                 if (response.success) {
-                    // Redirect to the intended page or home page
-                    window.location.href = '{{ url("/home") }}';
+                    // Reload the current page
+                    window.location.reload();
                 } else {
-                    passwordError.textContent = response.message;
+                    loginErrorMessage.textContent = response.message;
+                    loginErrorMessage.style.display = "block";
                 }
             },
             error: function (response) {
                 if (response.status === 401) {
-                    passwordError.textContent = response.responseJSON.message;
-                } else {
-                    passwordError.textContent =
+                    loginErrorMessage.textContent =
+                        response.responseJSON.message;
+                    loginErrorMessage.style.display = "block";
+                } else if (response.status === 500) {
+                    loginErrorMessage.textContent =
                         "Có lỗi xảy ra. Vui lòng thử lại.";
+                    loginErrorMessage.style.display = "block";
+                } else {
+                    loginErrorMessage.textContent =
+                        "Có lỗi xảy ra. Vui lòng thử lại.";
+                    loginErrorMessage.style.display = "block";
                 }
             },
         });

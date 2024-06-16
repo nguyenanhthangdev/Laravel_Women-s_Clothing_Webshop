@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="user-logged-in" content="{{ Session::has('customer') ? 'true' : 'false' }}">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rokkitt:100,300,400,700" rel="stylesheet">
@@ -106,8 +107,13 @@
                                 <li class="cart has-dropdown mr-3">
                                     <i class="icon-user"></i>
                                     <ul class="dropdown" style="left: -20px;">
-                                        <li><a id="login" onclick="showLoginModal()">Đăng nhập</a></li>
-                                        <li><a id="register" onclick="showRegisterModal()">Đăng kí</a></li>
+                                        @if (Session::has('customer'))
+                                            <li><a href="#">{{ Session::get('customer')->fullname }}</a></li>
+                                            <li><a href="javascript:void(0)" onclick="logout()">Đăng xuất</a></li>
+                                        @else
+                                            <li><a id="login" onclick="showLoginModal()">Đăng nhập</a></li>
+                                            <li><a id="register" onclick="showRegisterModal()">Đăng kí</a></li>
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
@@ -123,21 +129,23 @@
                         <span>&times;</span>
                     </div>
                     <h2>ĐĂNG NHẬP</h2>
-                    <form method="POST" action="{{ route('login') }}" class="form-login"
-                        onsubmit="return validateLogin()">
+                    <div id="login-error-message" class="alert alert-danger" style="display: none;"></div>
+                    <form class="form-login" onsubmit="return validateLogin()">
                         @csrf
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="account-login">Tên đăng nhập</label>
-                                    <input type="text" id="account-login" name="account-login" class="form-control" />
+                                    <input type="text" id="account-login" name="account-login"
+                                        class="form-control" />
                                     <small class="text-danger" id="account-login-error"></small>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="password-login">Mật khẩu</label>
-                                    <input type="password" id="password-login" name=password-login" class="form-control" />
+                                    <input type="password" id="password-login" name=password-login"
+                                        class="form-control" />
                                     <small class="text-danger" id="password-login-error"></small>
                                 </div>
                             </div>
@@ -325,6 +333,8 @@
     <script src="{{ asset('frontend/js/my-cart.js') }}"></script>
     <script src="{{ asset('frontend/js/authenticate.js') }}"></script>
     <script src="{{ asset('frontend/js/validate.js') }}"></script>
+    <script src="{{ asset('frontend/js/checkout.js') }}"></script>
+    <script src="{{ asset('frontend/js/shipping.js') }}"></script>
 </body>
 
 </html>

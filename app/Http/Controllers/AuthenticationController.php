@@ -34,9 +34,7 @@ class AuthenticationController extends Controller
         try {
             $user = User::where('username', $request->username)->first();
             if ($user != null) {
-
                 if (Hash::check($request->password, $user->password)) {
-
                     if (Auth::loginUsingId($user->user_id)) {
                         // Đăng nhập thành công
                         Session::put('user', $user);
@@ -97,14 +95,37 @@ class AuthenticationController extends Controller
 
     public function login(Request $request)
     {
-        $customer = new Customer;
-        $customer->fullname = $request->fullname;
-        $customer->account = $request->account;
-        $customer->password = bcrypt($request->password);
-        $customer->status = true;
-        $customer->save();
+        try {
+            $account = $request->input('account');
+            $password = $request->input('password');
 
-        return redirect()->back()->with('success', 'Đăng nhập khoản thành công');
+            $customer = Customer::where('account', $account)->first();
+            if ($customer != null) {
+                if (Hash::check($password, $customer->password)) {
+                    // Đăng nhập thành công, lưu thông tin vào session
+                    $request->session()->put('customer', $customer);
+
+                    // Trả về response thành công
+                    return response()->json(['success' => true], 200);
+                }
+            }
+
+            return response()->json(['success' => false, 'message' => 'Tên đăng nhập hoặc mật khẩu không đúng'], 401);
+        } catch (QueryException $e) {
+            // Xử lý lỗi truy vấn
+            return response()->json(['success' => false, 'message' => 'Đã xảy ra lỗi khi truy vấn dữ liệu, vui lòng thử lại sau'], 500);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        // Xóa thông tin khách hàng khỏi session
+        $request->session()->forget('customer');
+
+        $request->session()->forget('cart');
+
+        // Trả về response thành công
+        return response()->json(['success' => true], 200);
     }
 
     //--- END CLIENT ---

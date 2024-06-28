@@ -141,17 +141,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="pills-description-tab" data-toggle="pill"
                                             href="#pills-description" role="tab" aria-controls="pills-description"
-                                            aria-expanded="true">Description</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill"
-                                            href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer"
-                                            aria-expanded="true">Manufacturer</a>
+                                            aria-expanded="true">Mô TẢ</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="pills-review-tab" data-toggle="pill"
                                             href="#pills-review" role="tab" aria-controls="pills-review"
-                                            aria-expanded="true">Review</a>
+                                            aria-expanded="true">ĐÁNH GIÁ</a>
                                     </li>
                                 </ul>
 
@@ -161,154 +156,88 @@
                                         {!! $product->description !!}
                                     </div>
 
-                                    <div class="tab-pane border fade" id="pills-manufacturer" role="tabpanel"
-                                        aria-labelledby="pills-manufacturer-tab">
-                                        <p>Even the all-powerful Pointing has no control about the blind texts it is an
-                                            almost unorthographic life One day however a small line of blind text by the
-                                            name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                                        <p>When she reached the first hills of the Italic Mountains, she had a last view
-                                            back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet
-                                            Village and the subline of her own road, the Line Lane. Pityful a rethoric
-                                            question ran over her cheek, then she continued her way.</p>
-                                    </div>
-
                                     <div class="tab-pane border fade" id="pills-review" role="tabpanel"
                                         aria-labelledby="pills-review-tab">
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <h3 class="head">23 Reviews</h3>
-                                                <div class="review">
-                                                    <div class="user-img"
-                                                        style="background-image: url(images/person1.jpg)"></div>
-                                                    <div class="desc">
-                                                        <h4>
-                                                            <span class="text-left">Jacob Webb</span>
-                                                            <span class="text-right">14 March 2018</span>
-                                                        </h4>
-                                                        <p class="star">
-                                                            <span>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-half"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                            </span>
-                                                            <span class="text-right"><a href="#" class="reply"><i
-                                                                        class="icon-reply"></i></a></span>
-                                                        </p>
-                                                        <p>When she reached the first hills of the Italic Mountains, she had
-                                                            a last view back on the skyline of her hometown Bookmarksgrov
-                                                        </p>
+                                                <h3 class="head">{{ $product->reviews->count() }} Đánh giá</h3>
+                                                @forelse($product->reviews as $review)
+                                                    <div class="review">
+                                                        <div class="user-img"
+                                                            style="background-image: url({{ asset('frontend/images/avatar/image.png') }})">
+                                                        </div>
+                                                        <div class="desc">
+                                                            <h4>
+                                                                <span
+                                                                    class="text-left">{{ $review->customer->fullname }}</span>
+                                                                <span class="text-right">{{ $review->created_at }}</span>
+                                                            </h4>
+                                                            <p class="star">
+                                                                <span>
+                                                                    @for ($i = 1; $i <= 5; $i++)
+                                                                        @if ($i <= $review->rating)
+                                                                            <i class="icon-star-full"></i>
+                                                                        @else
+                                                                            <i class="icon-star-empty"></i>
+                                                                        @endif
+                                                                    @endfor
+                                                                </span>
+                                                                <span class="text-right"><a class="reply"><i
+                                                                            class="icon-reply"></i></a></span>
+                                                            </p>
+                                                            <p>{{ $review->comment }}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="review">
-                                                    <div class="user-img"
-                                                        style="background-image: url(images/person2.jpg)"></div>
-                                                    <div class="desc">
-                                                        <h4>
-                                                            <span class="text-left">Jacob Webb</span>
-                                                            <span class="text-right">14 March 2018</span>
-                                                        </h4>
-                                                        <p class="star">
-                                                            <span>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-half"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                            </span>
-                                                            <span class="text-right"><a href="#" class="reply"><i
-                                                                        class="icon-reply"></i></a></span>
-                                                        </p>
-                                                        <p>When she reached the first hills of the Italic Mountains, she had
-                                                            a last view back on the skyline of her hometown Bookmarksgrov
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="review">
-                                                    <div class="user-img"
-                                                        style="background-image: url(images/person3.jpg)"></div>
-                                                    <div class="desc">
-                                                        <h4>
-                                                            <span class="text-left">Jacob Webb</span>
-                                                            <span class="text-right">14 March 2018</span>
-                                                        </h4>
-                                                        <p class="star">
-                                                            <span>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-half"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                            </span>
-                                                            <span class="text-right"><a href="#" class="reply"><i
-                                                                        class="icon-reply"></i></a></span>
-                                                        </p>
-                                                        <p>When she reached the first hills of the Italic Mountains, she had
-                                                            a last view back on the skyline of her hometown Bookmarksgrov
-                                                        </p>
-                                                    </div>
+                                                @endforeach
+
+                                                <div class="add-review">
+                                                    <h3 class="head mb-2">THÊM ĐÁNH GIÁ</h3>
+                                                    <form id="reviewForm">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <p class="star">
+                                                                <span id="stars">
+                                                                    <i class="icon-star-empty custom-icon-star-empty"
+                                                                        data-value="1"></i>
+                                                                    <i class="icon-star-empty custom-icon-star-empty"
+                                                                        data-value="2"></i>
+                                                                    <i class="icon-star-empty custom-icon-star-empty"
+                                                                        data-value="3"></i>
+                                                                    <i class="icon-star-empty custom-icon-star-empty"
+                                                                        data-value="4"></i>
+                                                                    <i class="icon-star-empty custom-icon-star-empty"
+                                                                        data-value="5"></i>
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        <input type="hidden" name="rating" id="rating"
+                                                            value="0">
+                                                        <div class="form-group">
+                                                            <textarea name="comment" id="comment" class="w-100 bg-light border border-dark"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Đánh giá</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="rating-wrap">
-                                                    <h3 class="head">Give a Review</h3>
+                                                    <h3 class="head">Đánh giá</h3>
                                                     <div class="wrap">
-                                                        <p class="star">
-                                                            <span>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                (98%)
-                                                            </span>
-                                                            <span>20 Reviews</span>
-                                                        </p>
-                                                        <p class="star">
-                                                            <span>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                (85%)
-                                                            </span>
-                                                            <span>10 Reviews</span>
-                                                        </p>
-                                                        <p class="star">
-                                                            <span>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                (70%)
-                                                            </span>
-                                                            <span>5 Reviews</span>
-                                                        </p>
-                                                        <p class="star">
-                                                            <span>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                (10%)
-                                                            </span>
-                                                            <span>0 Reviews</span>
-                                                        </p>
-                                                        <p class="star">
-                                                            <span>
-                                                                <i class="icon-star-full"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                <i class="icon-star-empty"></i>
-                                                                (0%)
-                                                            </span>
-                                                            <span>0 Reviews</span>
-                                                        </p>
+                                                        @for ($i = 5; $i >= 1; $i--)
+                                                            <p class="star">
+                                                                <span>
+                                                                    @for ($j = 1; $j <= 5; $j++)
+                                                                        @if ($j <= $i)
+                                                                            <i class="icon-star-full"></i>
+                                                                        @else
+                                                                            <i class="icon-star-empty"></i>
+                                                                        @endif
+                                                                    @endfor
+                                                                    ({{ round($starPercentages[$i]) }}%)
+                                                                </span>
+                                                                <span>{{ $starCounts[$i] }} đánh giá</span>
+                                                            </p>
+                                                        @endfor
                                                     </div>
                                                 </div>
                                             </div>

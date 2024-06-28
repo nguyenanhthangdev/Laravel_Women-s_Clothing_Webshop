@@ -7,10 +7,14 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShippingController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UserController;
@@ -101,12 +105,34 @@ Route::middleware(['auth.admin'])->prefix('admin')->group(function () {
     Route::get('/delete-size/{size_id}', [SizeController::class, 'deleteSize'])->name('admin.delete-size');
     // --- ADMIN: END SIZE ---
 
+    // --- ADMIN: START ORDER ---
+    Route::get('/order', [OrderController::class, 'order'])->name('admin.order');
+    Route::get('/order-details/{order_code}', [OrderController::class, 'orderDetails'])->name('admin.order-details');
+    Route::post('/order-cancel', [OrderController::class, 'orderCancel'])->name('admin.order-cancel');
+    Route::post('/change-order-process', [OrderController::class, 'changeOrderProcess'])->name('admin.change-order-process');
+    Route::post('/change-order-shipped', [OrderController::class, 'changeOrderShipped'])->name('admin.change-order-shipped');
+    Route::post('/change-order-delivered', [OrderController::class, 'changeOrderDelivered'])->name('admin.change-order-delivered');
+    // --- ADMIN: END ORDER ---
+
+    // --- ADMIN: START CONTACT ---
+    Route::get('/contact', [ContactController::class, 'allContact'])->name('admin.contact');
+    Route::get('/contact-details/{contact_id}', [ContactController::class, 'contactDetails'])->name('admin.contact-details');
+    // --- ADMIN: END CONTACT ---
+
+    // --- ADMIN: START POST ---
+    Route::get('/post', [PostController::class, 'post'])->name('admin.post');
+    Route::get('/add-post', [PostController::class, 'addPost'])->name('admin.add-post');
+    Route::post('/add-post', [PostController::class, 'savePost'])->name('admin.save-post');
+    Route::get('/edit-post/{post_id}', [PostController::class, 'editPost'])->name('admin.edit-post');
+    Route::post('/update-post', [PostController::class, 'updatePost'])->name('admin.update-post');
+    Route::get('/delete-post/{post_id}', [PostController::class, 'deletePost'])->name('admin.delete-post');
+    // --- ADMIN: END POST ---
+
     // --- ADMIN: START SIGN OUT ---
     Route::get('/sign-out', [AuthenticationController::class, 'signOut'])->name('admin.sign-out');
     // --- ADMIN: END SIGN OUT ---
 
 });
-
 
 // --- CLIENT: START HOME ---
 Route::get('/', [HomePageController::class, 'home'])->name('client.home');
@@ -115,6 +141,18 @@ Route::get('/', [HomePageController::class, 'home'])->name('client.home');
 // --- CLIENT: START DETAILS ---
 Route::get('/product-details/{product_id}', [HomePageController::class, 'productDetails'])->name('client.product-details');
 // --- CLIENT: END DETAILS ---
+
+// --- CLIENT: START MANUFACTURER ---
+Route::get('/manufacturer/{manufacturer_id}', [HomePageController::class, 'getAllManufacturerById'])->name('client.manufacturer');
+// --- CLIENT: END MANUFACTURER ---
+
+// --- CLIENT: START CATEGORY ---
+Route::get('/category/{category_id}', [HomePageController::class, 'getAllCategoryById'])->name('client.category');
+// --- CLIENT: END CATEGORY ---
+
+// --- CLIENT: START SEARCH ---
+Route::get('/search', [HomePageController::class, 'search'])->name('client.search');
+// --- CLIENT: END SEARCH ---
 
 // --- CLIENT: START CART ---
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
@@ -130,9 +168,19 @@ Route::post('/register', [AuthenticationController::class, 'register'])->name('r
 Route::post('/login', [AuthenticationController::class, 'login'])->name('login');
 // --- CLIENT: END LOGIN & REGISTER ---
 
+// --- CLIENT: START CONTACT ---
+Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
+Route::post('/send-contact', [ContactController::class, 'sendContact'])->name('send-contact');
+// --- CLIENT: END CONTACT ---
+
+// --- CLIENT: START POST ---
+Route::get('/post-details/{post_id}', [PostController::class, 'postDetails'])->name('post-details');
+// --- CLIENT: END POST ---
+
 Route::middleware(['customer.auth'])->group(function () {
     // --- CLIENT: START CHECKOUT ---
     Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::post('/save-order', [CheckoutController::class, 'saveOrder']);
     // --- CLIENT: END CHECKOUT ---
 
     // --- CLIENT: START LOGOUT ---
@@ -149,5 +197,15 @@ Route::middleware(['customer.auth'])->group(function () {
     Route::get('/get-all-shipping-by-customer-id', [ShippingController::class, 'getAllShippingByCustomerId']);
     Route::post('/set-default-shipping', [ShippingController::class, 'setDefaultShipping']);
     Route::delete('/delete-shipping/{shipping_id}', [ShippingController::class, 'deleteShipping']);
+    Route::get('/check-shipping-address', [ShippingController::class, 'checkShippingAddress']);
     // --- CLIENT: END SHIPPING ---
+
+    // --- CLIENT: START ORDER ---
+    Route::get('/my-order', [OrderController::class, 'myOrder'])->name('my-order');
+    Route::post('/cancel-order', [OrderController::class, 'cancelOrder'])->name('cancel-order');
+    // --- CLIENT: END ORDER ---
+
+    // --- CLIENT: START REVIEW ---
+    Route::post('/add-review/{product_id}', [ProductReviewController::class, 'addReview'])->name('product-review');
+    // --- CLIENT: END REVIEW ---
 });

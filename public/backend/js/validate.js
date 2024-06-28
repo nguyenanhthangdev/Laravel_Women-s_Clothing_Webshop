@@ -240,7 +240,7 @@ function validateFormManufacturerAdd() {
         featuredError.textContent = "Vui lòng chọn tính nổi bật";
         isValid = false;
     } else {
-        statusError.textContent = "";
+        featuredError.textContent = "";
     }
 
     // Validate status
@@ -286,7 +286,7 @@ function validateFormCategoryAdd() {
         featuredError.textContent = "Vui lòng chọn tính nổi bật";
         isValid = false;
     } else {
-        statusError.textContent = "";
+        featuredError.textContent = "";
     }
 
     // Validate status
@@ -399,3 +399,48 @@ function validateFormSizeAdd() {
 }
 
 document.querySelector(".form-size").addEventListener("submit", validateFormSizeAdd);
+
+function validateFormPostAdd() {
+    let isValid = true;
+
+    // Lấy giá trị của các trường dữ liệu
+    const title = document.getElementById("title").value.trim();
+    const detail = document.getElementById("detail").value;
+    const status = document.getElementById("status").value;
+
+    // Lấy các div hiển thị lỗi
+    const titleError = document.getElementById("titleError");
+    const detailError = document.getElementById("detailError");
+    const statusError = document.getElementById("statusError");
+
+    titleError.textContent = "";
+    detailError.textContent = "";
+    statusError.textContent = "";
+
+    // Validate fullname
+    if (!title) {
+        titleError.textContent = "Tiêu đề bài viết không được để trống";
+        isValid = false;
+    } else {
+        titleError.textContent = "";
+    }
+
+    if (!detail) {
+        detailError.textContent = "Nội dung bài viết không được để trống";
+        isValid = false;
+    } else {
+        detailError.textContent = "";
+    }
+
+    // Validate status
+    if (!status) {
+        statusError.textContent = "Vui lòng chọn trạng thái";
+        isValid = false;
+    } else {
+        statusError.textContent = "";
+    }
+
+    return isValid;
+}
+
+document.querySelector(".form-post").addEventListener("submit", validateFormPostAdd);

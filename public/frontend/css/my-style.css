@@ -34,7 +34,11 @@
 }
 
 /* CSS để ẩn form mặc định */
-#registerModal, #loginModal , #addShippingModal, #showAllShippingModal{
+#registerModal,
+#loginModal,
+#addShippingModal,
+#showAllShippingModal,
+#showOrderCancelModal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -88,8 +92,72 @@
     cursor: pointer;
 }
 
-.information-address-of-my {padding: 1em 1em 0em 1em;border: 0.3em solid transparent;background: linear-gradient(white, white) padding-box, repeating-linear-gradient(-45deg, red 0, red 12.5%, transparent 0, transparent 25%, #58a 0, #58a 37.5%, transparent 0, transparent 50%) 0 / 5em 5em;}
+.information-address-of-my {
+    padding: 1em 1em 0em 1em;
+    border: 0.3em solid transparent;
+    background: linear-gradient(white, white) padding-box,
+        repeating-linear-gradient(
+                -45deg,
+                red 0,
+                red 12.5%,
+                transparent 0,
+                transparent 25%,
+                #58a 0,
+                #58a 37.5%,
+                transparent 0,
+                transparent 50%
+            )
+            0 / 5em 5em;
+}
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+.line-hr {
+    font-weight: 700 !important;
+    border-width: unset;
+}
+
+.list-empty {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.list-empty p {
+    margin-top: 10px;
+}
+
+.list-empty svg {
+    width: 5em;
+    height: 5em;
+}
+
+.list-empty-home {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.list-empty-home p {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.list-empty-home svg {
+    width: 10em;
+    height: 10em;
+}
+
+.custom-icon-star-empty {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.custom-icon-star-full {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cancelled {
+    background-color: #dc3545;
 }

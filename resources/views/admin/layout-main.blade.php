@@ -104,6 +104,38 @@
             </li>
             <hr class="sidebar-divider mb-0" />
             <li class="nav-item">
+                <a class="nav-link" href="/admin/order">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor"
+                        class="bi bi-box-seam" viewBox="0 0 16 16">
+                        <path
+                            d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z" />
+                    </svg>
+                    <span>ĐƠN HÀNG</span></a>
+            </li>
+            <hr class="sidebar-divider mb-0" />
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/contact">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor"
+                        class="bi bi-send" viewBox="0 0 16 16">
+                        <path
+                            d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                    </svg>
+                    <span>PHẢN HỒI</span></a>
+            </li>
+            <hr class="sidebar-divider mb-0" />
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/post">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor"
+                        class="bi bi-bookmarks" viewBox="0 0 16 16">
+                        <path
+                            d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1z" />
+                        <path
+                            d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1" />
+                    </svg>
+                    <span>BÀI VIẾT</span></a>
+            </li>
+            <hr class="sidebar-divider mb-0" />
+            <li class="nav-item">
                 <a class="nav-link" href="/admin/banner">
                     <svg xmlns="http://www.w3.org/2000/svg" width="0.9em" height="0.9em" fill="currentColor"
                         class="bi bi-images" viewBox="0 0 16 16">
@@ -225,6 +257,7 @@
     <script src="{{ asset('backend/js/validate.js') }}"></script>
     <script src="{{ asset('backend/js/script-my.js') }}"></script>
     <script src="{{ asset('backend/js/button-confirm-delete.js') }}"></script>
+    <script src="{{ asset('backend/js/order.js') }}"></script>
 
     <script>
         var option_row = 0;

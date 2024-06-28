@@ -7,7 +7,7 @@
     <div class="container">
         @if (count($cart) > 0)
             <div id="cart-table">
-                <h1 class="mt-4">Giỏ hàng của bạn</h1>
+                <h1 class="mt-4">ĐƠN HÀNG CỦA BẠN</h1>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

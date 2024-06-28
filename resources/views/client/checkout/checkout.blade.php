@@ -65,12 +65,12 @@
             <div class="col-lg-12">
                 <div class="bg-light pt-4 pr-4 pb-1 pl-4 d-flex justify-content-between">
                     <h5 class="color-main d-inline-block">Hình thức thanh toán</h5>
-                    <a class="card-a" onclick="changePayment()">Thay đổi</a>
+                    {{-- <a onclick="changePayment()">Thay đổi</a> --}}
                 </div>
                 <div class="bg-light pb-4 pl-4">
                     <input type="radio" name="payments" class="d-inline-block mr-2" checked />
-                    <img src="/images/payments/cod-money.jpg" width="50" height="50"
-                        class="d-inline-block mr-2 img-thumbnail" />
+                    <img src="{{ asset('frontend/images/payment_method/anh-1.jpg') }}" width="100" height="100"
+                        class="d-inline-block mr-2 img-thumbnail img-fluid" />
                     <span>Thanh toán khi nhận hàng (COD)</span>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <a type="button" class="btn btn-secondary" href="javascript:void(0)"
-                                            onclick="checkLogin()">Thanh toán</a>
+                                            onclick="checkShippingAddress()">Thanh toán</a>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +167,8 @@
         @endif
         <div id="cart-empty">
             <h1 class="mt-4">Giỏ hàng của bạn trống</h1>
-            <a type="button" class="btn btn-secondary" href="/">Tiếp tục mua hàng</a>
+            <a type="button" class="btn btn-secondary" href="/">Tiếp tục mua
+                hàng</a>
         </div>
 
         <!-- Form thêm địa chỉ nhận hàng -->
@@ -207,7 +208,8 @@
                                 <select name="city" id="city" class="form-control" onchange="fetchDistricts()">
                                     <option value="">Chọn thành phố</option>
                                     @foreach ($cities as $city)
-                                        <option value="{{ $city->city_id }}">{{ $city->city_name }}</option>
+                                        <option value="{{ $city->city_id }}">
+                                            {{ $city->city_name }}</option>
                                     @endforeach
                                 </select>
                                 <small class="text-danger" id="cityError"></small>

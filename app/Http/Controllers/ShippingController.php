@@ -132,4 +132,21 @@ class ShippingController extends Controller
             return response()->json(['success' => false, 'message' => 'Không thể xóa địa chỉ này.'], 500);
         }
     }
+
+    public function checkShippingAddress(Request $request)
+    {
+        $customer = $request->session()->get('customer');
+        $customerId = $customer->customer_id;
+
+        // Kiểm tra xem có địa chỉ giao hàng nào với status=true cho người dùng hiện tại hay không
+        $hasShippingAddress = Shipping::where('customer_id', $customerId)
+            ->where('status', true)
+            ->exists();
+
+        if ($hasShippingAddress) {
+            return response()->json(['hasShippingAddress' => true]);
+        } else {
+            return response()->json(['hasShippingAddress' => false]);
+        }
+    }
 }

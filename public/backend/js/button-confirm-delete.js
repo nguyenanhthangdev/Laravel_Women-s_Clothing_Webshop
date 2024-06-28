@@ -143,3 +143,37 @@ function confirmBannerDelete(banner_id) {
         }
     });
 }
+
+function confirmOrderCancel(order_code) {
+    Swal.fire({
+        title: 'HỦY ĐƠN HÀNG',
+        text: "Bạn có chắc chắn muốn hủy đơn hàng?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#15a362',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xóa',
+        cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/order-cancel/' + order_code;
+        }
+    });
+}
+
+function confirmPostDelete(post_id) {
+    Swal.fire({
+        title: 'XÓA BÀI VIẾT',
+        text: "Bạn có chắc chắn muốn xóa?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#15a362',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Xóa',
+        cancelButtonText: 'Hủy'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/admin/delete-post/' + post_id;
+        }
+    });
+}

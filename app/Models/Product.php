@@ -46,4 +46,9 @@ class Product extends Model
     {
         return $this->variants->max('price');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class, 'product_id', 'product_id');
+    }
 }

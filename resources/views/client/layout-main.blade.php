@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Footwear - Free Bootstrap 4 Template by Colorlib</title>
+    <title>HAVANA</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -65,9 +65,9 @@
                             <div id="colorlib-logo"><a href="/">HAVANA SHOP</a></div>
                         </div>
                         <div class="col-sm-5 col-md-3">
-                            <form action="#" class="search-wrap">
+                            <form action="{{ url('/search') }}" class="search-wrap" method="GET">
                                 <div class="form-group">
-                                    <input type="search" class="form-control search" placeholder="Search">
+                                    <input type="search" name="query" class="form-control search" placeholder="Search">
                                     <button class="btn btn-primary submit-search text-center" type="submit"><i
                                             class="icon-search"></i></button>
                                 </div>
@@ -82,7 +82,7 @@
                                     <a href="">Danh mục</a>
                                     <ul class="dropdown">
                                         @foreach ($categories as $category)
-                                            <li><a href="">{{ $category->name }}</a></li>
+                                            <li><a href="/category/{{ $category->category_id }}">{{ $category->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -90,13 +90,11 @@
                                     <a href="">Thương hiệu</a>
                                     <ul class="dropdown">
                                         @foreach ($manufacturers as $manufacturer)
-                                            <li><a href="">{{ $manufacturer->name }}</a></li>
+                                            <li><a href="/manufacturer/{{ $manufacturer->manufacturer_id }}">{{ $manufacturer->name }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
-                                <li><a href="women.html">Women</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="/contact">Liên hệ</a></li>
                                 @php
                                     $cart = Session::get('cart', []);
                                     $cartCount = count($cart);
@@ -109,6 +107,7 @@
                                     <ul class="dropdown" style="left: -20px;">
                                         @if (Session::has('customer'))
                                             <li><a href="#">{{ Session::get('customer')->fullname }}</a></li>
+                                            <li><a href="/my-order">Đơn hàng của tôi</a></li>
                                             <li><a href="javascript:void(0)" onclick="logout()">Đăng xuất</a></li>
                                         @else
                                             <li><a id="login" onclick="showLoginModal()">Đăng nhập</a></li>
@@ -335,6 +334,9 @@
     <script src="{{ asset('frontend/js/validate.js') }}"></script>
     <script src="{{ asset('frontend/js/checkout.js') }}"></script>
     <script src="{{ asset('frontend/js/shipping.js') }}"></script>
+    <script src="{{ asset('frontend/js/review.js') }}"></script>
+    <script src="{{ asset('frontend/js/my-order.js') }}"></script>
+    <script src="{{ asset('frontend/js/contact.js') }}"></script>
 </body>
 
 </html>

@@ -11,7 +11,7 @@ svg {
     margin-top: 130px;
 }
 
-.list-empty p{
+.list-empty p {
     margin-top: 10px;
 }
 
@@ -74,28 +74,30 @@ svg {
 }
 
 #imagePreview {
-    display: none; 
-    width: 130px; 
+    display: none;
+    width: 130px;
     height: 130px;
     margin-top: 10px;
 }
 
-.gallery, .image-option, .img-old {
-    width: 130px; 
+.gallery,
+.image-option,
+.img-old {
+    width: 130px;
     height: 130px;
     object-fit: contain;
 }
 
 .gallery-preview {
-    display: none; 
-    max-width: 130px; 
+    display: none;
+    max-width: 130px;
     height: auto;
     margin-top: 10px;
 }
 
 .option-image-preview {
-    display: none; 
-    max-width: 130px; 
+    display: none;
+    max-width: 130px;
     height: auto;
     margin-top: 10px;
 }
@@ -115,7 +117,105 @@ svg {
     height: 100px;
     overflow-y: scroll;
     border: 1px solid rgb(210, 210, 210); /* Để hiển thị viền giống như form-control */
-    border-radius: .25rem; /* Để bo góc như form-control */
-    padding: .375rem .75rem; /* Để padding như form-control */
+    border-radius: 0.25rem; /* Để bo góc như form-control */
+    padding: 0.375rem 0.75rem; /* Để padding như form-control */
     box-sizing: border-box; /* Để bao gồm cả padding và border vào chiều cao */
+}
+
+.status-order {
+    padding: 3px 11px;
+    color: white;
+    display: inline-block;
+    font-size: 17px;
+    border-radius: 5px;
+}
+.cancelled {
+    background-color: #dc3545;
+}
+.delivered {
+    background-color: #28a745;
+}
+.shipped {
+    background-color: #b3d7ff;
+}
+.processing {
+    background-color: #fcd203;
+}
+.ordered {
+    background-color: #ff874a;
+}
+
+.custom-btn-order {
+    padding: 8px 16px;
+    color: white;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.custom-btn-order svg {
+    width: 21px;
+    height: 21px;
+    margin-right: 3px;
+    margin-top: -3px;
+    display: inline-block;
+}
+
+.custom-btn-order.cancelled:hover {
+    background-color: #c51325;
+}
+.custom-btn-order.delivered:hover {
+    background-color: #15a636;
+}
+.custom-btn-order.shipped:hover {
+    background-color: #86bdfb;
+}
+.custom-btn-order.processing:hover {
+    background-color: #e4be01;
+}
+
+#showOrderCancelModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.modal-content {
+    margin: 100px auto;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
